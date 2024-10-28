@@ -2,6 +2,7 @@ package Tema3.Actividades.A2_CalculadoraSockets;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
@@ -13,6 +14,7 @@ public class ClienteCalculadora {
     boolean repetir = true;
     static Scanner scanner;
 
+    // Inicializamos flujos de entrada y salida
     public ClienteCalculadora(Socket socket) {
         this.socket = socket;
         try {
@@ -23,6 +25,7 @@ public class ClienteCalculadora {
         }
     }
 
+    // Se intenta conectar con el servidor
     public static void main(String[] args) {
         int puerto = 12345;
         Socket socket = null;
@@ -37,11 +40,13 @@ public class ClienteCalculadora {
         cliente.ejecutar();
     }
 
+    // Pedimos operación y la enviamos al servidor, luego leemos el resultado que nos envía el hilo correspondiente de vuelta.
     private void ejecutar() {
         String operacion = "";
         while (repetir) {
             String op = pedirOperacion();
             if (op.equals("0")) System.exit(0);
+
             System.out.println("Introduce el primer valor: ");
             String valor1 = pedirNumero();
             System.out.println("Ahora introduce el segundo valor: ");
@@ -51,8 +56,12 @@ public class ClienteCalculadora {
             try {
                 fsalida.writeUTF(operacion);
                 System.out.println("Resultado: " + fentrada.readUTF());
+            } catch(EOFException e ) {
+                System.out.println("El servidor se ha desconectado.");
+                break;
             } catch (IOException e) {
                 e.printStackTrace();
+                repetir = false;
             }
         }
     }
@@ -73,14 +82,14 @@ public class ClienteCalculadora {
 
     private String pedirNumero() {
         String input = scanner.nextLine();
-        while (input.equals("") || !isDigito(input)) {
+        while (input.equals("") || !esDigito(input)) {
             System.out.println("No puedo operar con eso. Introduce un número:");
             input = scanner.nextLine();
         }
         return input;
     }
 
-    private boolean isDigito(String cadena) {
+    private boolean esDigito(String cadena) {
         for (char c : cadena.toCharArray()) {
             System.out.println(String.valueOf(c));
             if (!"0123456789".contains(String.valueOf(c))) {

@@ -17,6 +17,7 @@ public class ServidorCalculadora {
         servidor = new ServerSocket(PUERTO);
         System.out.println("Servidor esperando conexiones...");
 
+        // Se aceptan nuevas conexiones y se instancia un hilo por cada nueva conexión
         while (true) {
             Socket socket = new Socket();
             socket = servidor.accept();
@@ -29,6 +30,7 @@ public class ServidorCalculadora {
         }
     }
 
+    // Recibe la operación y devuelve el resultado
     static public int operar(String operacion) {
         List<String> list = Arrays.asList(operacion.split("#"));
         int valor1 = Integer.parseInt(list.get(1));
