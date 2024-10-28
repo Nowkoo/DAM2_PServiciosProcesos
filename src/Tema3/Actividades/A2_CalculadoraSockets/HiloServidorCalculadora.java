@@ -7,6 +7,7 @@ import java.net.Socket;
 
 public class HiloServidorCalculadora extends Thread {
     DataInputStream fentrada;
+    DataOutputStream fsalida;
     Socket socket = null;
 
     public HiloServidorCalculadora(Socket socket) {
@@ -14,6 +15,7 @@ public class HiloServidorCalculadora extends Thread {
 
         try {
             fentrada = new DataInputStream(socket.getInputStream());
+            fsalida = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             System.out.println("Error al leer el servidor");
             e.printStackTrace();
@@ -22,11 +24,11 @@ public class HiloServidorCalculadora extends Thread {
 
     public void run() {
         while (true) {
-            String cadena = "";
+            String operacion = "";
             try {
-                cadena = fentrada.readUTF();
+                operacion = fentrada.readUTF();
                 DataOutputStream fsalida = new DataOutputStream(socket.getOutputStream());
-                fsalida.writeUTF(String.valueOf(ServidorCalculadora.operar(cadena)));
+                fsalida.writeUTF(String.valueOf(ServidorCalculadora.operar(operacion)));
 
             } catch (IOException e) {
                 e.printStackTrace();

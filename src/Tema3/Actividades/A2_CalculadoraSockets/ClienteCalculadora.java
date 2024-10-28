@@ -40,12 +40,12 @@ public class ClienteCalculadora {
     private void ejecutar() {
         String operacion = "";
         while (repetir) {
-            System.out.println("Introduce tipo de operación: 1-Suma, 2-Resta, 3-Multiplicación, 4-División");
-            String op = scanner.nextLine();
-            System.out.println("Introduce primer valor: ");
-            String valor1 = scanner.nextLine();
-            System.out.println("Introduce segundo valor: ");
-            String valor2 = scanner.nextLine();
+            String op = pedirOperacion();
+            if (op.equals("0")) System.exit(0);
+            System.out.println("Introduce el primer valor: ");
+            String valor1 = pedirNumero();
+            System.out.println("Ahora introduce el segundo valor: ");
+            String valor2 = pedirNumero();
             operacion = op + "#" + valor1 + "#" + valor2;
 
             try {
@@ -55,5 +55,38 @@ public class ClienteCalculadora {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String pedirOperacion() {
+        String input;
+        while (true) {
+            System.out.println("Introduce tipo de operación: 1-Suma, 2-Resta, 3-Multiplicación, 4-División. O pulsa 0 para salir.");
+            input = scanner.nextLine();
+            for (int i = 0; i <= 4; i++) {
+                if (input.equals(String.valueOf(i))) {
+                    return input;
+                }
+            }
+            System.out.println("Esa no es una operación válida.");
+        }
+    }
+
+    private String pedirNumero() {
+        String input = scanner.nextLine();
+        while (input.equals("") || !isDigito(input)) {
+            System.out.println("No puedo operar con eso. Introduce un número:");
+            input = scanner.nextLine();
+        }
+        return input;
+    }
+
+    private boolean isDigito(String cadena) {
+        for (char c : cadena.toCharArray()) {
+            System.out.println(String.valueOf(c));
+            if (!"0123456789".contains(String.valueOf(c))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
