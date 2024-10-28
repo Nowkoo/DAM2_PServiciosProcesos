@@ -58,6 +58,7 @@ public class ClienteCalculadora {
                 System.out.println("Resultado: " + fentrada.readUTF());
             } catch(EOFException e ) {
                 System.out.println("El servidor se ha desconectado.");
+                System.exit(0);
                 break;
             } catch (IOException e) {
                 e.printStackTrace();
