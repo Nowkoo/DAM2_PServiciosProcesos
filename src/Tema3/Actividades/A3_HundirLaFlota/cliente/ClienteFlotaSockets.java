@@ -220,7 +220,21 @@ public class ClienteFlotaSockets {
 		 *                      "filaInicial#columnaInicial#orientacion#tamanyo"
 		 */
 		public void pintaBarcoHundido(String cadenaBarco) {
-				//TODO
+			String[] arrayBarco = cadenaBarco.split("#");
+			int filaInicial = Integer.parseInt(arrayBarco[0]);
+			int columnaInicial = Integer.parseInt(arrayBarco[1]);
+			String orientacion = arrayBarco[2];
+			int tamanyo = Integer.parseInt(arrayBarco[3]);
+
+			if(orientacion.equals("H")) {
+				for(int columna = columnaInicial; columna < columnaInicial + tamanyo; columna++) {
+					this.pintaBoton(buttons[filaInicial][columna], Color.RED);
+				}
+			} else {
+				for(int fila = filaInicial; fila < filaInicial + tamanyo; fila++) {
+					this.pintaBoton(buttons[fila][columnaInicial], Color.RED);
+				}
+			}
     		
 		} // end pintaBarcoHundido
 
