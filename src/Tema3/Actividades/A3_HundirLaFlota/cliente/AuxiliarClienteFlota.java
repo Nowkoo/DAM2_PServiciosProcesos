@@ -57,7 +57,7 @@ public class AuxiliarClienteFlota {
     * @throws IOException
     */
    public void nuevaPartida(int nf, int nc, int nb)  throws IOException {
-	   throw new UnsupportedOperationException(); // cambiar por el código correspondiente
+	   mySocket.sendMessage("1#" + nf + "#" + nc + "#" + nb);
    } // end nuevaPartida
 
    /**
@@ -70,7 +70,9 @@ public class AuxiliarClienteFlota {
     * @throws IOException
     */
    public int pruebaCasilla(int f, int c) throws IOException {
-	   throw new UnsupportedOperationException(); // cambiar por el código correspondiente
+	   mySocket.sendMessage("2#" + f + "#" + c);
+	   String resultado = mySocket.receiveMessage();
+	   return Integer.parseInt(resultado);
     } // end getCasilla
    
    /**
@@ -82,7 +84,8 @@ public class AuxiliarClienteFlota {
     * @throws IOException
     */
    public String getBarco(int idBarco) throws IOException {
-	   throw new UnsupportedOperationException(); // cambiar por el código correspondiente
+	   mySocket.sendMessage("3#" + idBarco);
+       return mySocket.receiveMessage();
     } // end getCasilla
    
    /**
