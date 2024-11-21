@@ -11,10 +11,12 @@ public class EjemploHilosThread {
         }
 
         try {
-            hilo1.join(); // Espera a que hilo1 termine
+            // Espera a que hilo1 termine antes de seguir con el hilo principal
+            hilo1.join();
         } catch (InterruptedException e) {
             // Manejo de excepciones
         }
+        System.out.println("FIN DEL PROGRAMA");
     }
 
     public static class MiHilo extends Thread {

@@ -28,8 +28,6 @@ class MiTarea implements Runnable {
          hilo1.start();
          hilo2.start();
 
-
-
          // El hilo principal (main) tambien realiza algunas tareas
          for (int i = 1; i <= 5; i++) {
              System.out.println("Hilo principal: Contador " + i);

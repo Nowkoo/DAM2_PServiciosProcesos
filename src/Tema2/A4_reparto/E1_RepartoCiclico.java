@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class E1_RepartoCiclico {
-    static int n;
-    static int m;
+    static int n; //Cantidad total de trabajo
+    static int m; //Numero de hilos
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
